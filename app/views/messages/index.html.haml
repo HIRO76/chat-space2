@@ -1,0 +1,45 @@
+.flash-box
+  .wrapper
+    .chat-side
+      .side-header
+        .side-header__box
+          %p.side-header__box__user-name 安倍晋三
+          %ul.side-header__box__menu
+            %li.side-header__box__menu__new-group
+            = link_to "#" do
+              %i.fa.fa-edit
+            %li.side-header__box__menu__edit-user
+            = link_to "#" do
+              %i.fa.fa-cog
+      .groups
+        = link_to "#" do
+          .group
+            %p.group__group-name 自民党
+            %p.group__latest-message アベノミクス
+    .chat-main
+      .main-header
+        .main-header__left-box
+          %h2.main-header__left-box__current-group{ data: {group: {id: "#"}} } 
+            自民党
+          %ul.main-header__left-box__member-list
+            Member：
+            %li.main-header__left-box__member-list__member 安倍晋三
+        = link_to "#" do
+          .main-header__edit-btn Edit
+      .messages
+        .message{ data: {message: {id: "#"}} } 
+          .message__upper-info
+            %p.message__upper-info__talker 安倍晋三
+            %p.message__upper-info__date 2019/09/26(Thu) 12:48:16
+          %p.message__text 増税！
+      .form
+        %form#new_message.new_message{ accept: {charset: "UTF-8"}, action: "#", enctype: "#", method: "post" }
+          %input{ name: "utf8", type: "hidden", value: "✓" }/
+          %input{ name: "#", type: "hidden", value: "#" }/
+          .input-box
+            %input#message_content.input-box__text{ name: "message[content]", placeholder: "type a message", type: "text" }/
+            %label.input-box__image{ for: "message_image" }
+              %i.fa.fa-image
+              %input#message_image.input-box__image__file{ name: "message[image]", type: "file" }/
+          %input.submit-btn{ data: {disable: {with: "Send"}}, name: "commit", type: "submit", value: "Send" }/
+
