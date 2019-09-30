@@ -3,7 +3,8 @@
     .chat-side
       .side-header
         .side-header__box
-          %p.side-header__box__user-name 安倍晋三
+          %p.side-header__box__user-name 
+            = current_user.name
           %ul.side-header__box__menu
             %li.side-header__box__menu__new-group
             = link_to "#" do
@@ -14,7 +15,8 @@
       .groups
         = link_to "#" do
           .group
-            %p.group__group-name 自民党
+            %p.group__group-name
+              -# = group.name
             %p.group__latest-message アベノミクス
     .chat-main
       .main-header
@@ -22,7 +24,7 @@
           %h2.main-header__left-box__current-group{ data: {group: {id: "#"}} } 
             自民党
           %ul.main-header__left-box__member-list
-            Member： message.user.name
+            Member： current_user.name
             -# %li.main-header__left-box__member-list__member 
         = link_to "#", class: 'btn'do 
           .main-header__edit-btn Edit
