@@ -26,13 +26,15 @@
   .chat-group-form__field.clearfix
     .chat-group-form__field--left
       %label.chat-group-form__label{:for => "chat_group_チャットメンバー"} チャットメンバー
-      = current_user.name
     .chat-group-form__field--right
-    #chat-group-users
-      #chat-group-user.chat-group-user.clearfix
-        %input{:name => "group[user_ids][]", :type => "hidden", :value => ""}
-        %p.chat-group-user__name
-
+      #chat-group-users
+        #chat-group-user.chat-group-user.clearfix
+          %input{:name => "group[user_ids][]", :type => "hidden", :value => current_user.id}
+          %p.chat-group-user__name
+          = current_user.name
+            -# - @members.each do |member|
+            -#   = member.name
+      
   .chat-group-form__field.clearfix
     .chat-group-form__field--left
     .chat-group-form__field--right
