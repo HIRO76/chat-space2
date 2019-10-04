@@ -1,32 +1,35 @@
 .flash-box
   .wrapper
-    .chat-side
-      .side-header
-        .side-header__box
-          %p.side-header__box__user-name 
-            = current_user.name
-          %ul.side-header__box__menu
-            %li.side-header__box__menu__new-group
-            = link_to "#" do
-              %i.fa.fa-edit
-            %li.side-header__box__menu__edit-user
-            = link_to "#" do
-              %i.fa.fa-cog
-      .groups
-        = link_to "#" do
-          .group
-            %p.group__group-name
-              -# = group.name
-            %p.group__latest-message アベノミクス
+    = render 'devise/shared/side_bar'
+    -# .chat-side
+    -#   .side-header
+    -#     .side-header__box
+    -#       %p.side-header__box__user-name 
+    -#         = current_user.name
+    -#       %ul.side-header__box__menu
+    -#         %li.side-header__box__menu__new-group
+    -#         = link_to new_group_path do
+    -#           %i.fa.fa-edit
+    -#         %li.side-header__box__menu__edit-user
+    -#         = link_to edit_user_path(current_user) do
+    -#           %i.fa.fa-cog
+      -# .groups
+      -#   .group
+      -#     %p.group__group-name
+      -#       -# = group.name
+      -#     %p.group__latest-message 
+      -#       -# = @group.show_last_message
+
     .chat-main
       .main-header
         .main-header__left-box
-          %h2.main-header__left-box__current-group{ data: {group: {id: "#"}} } 
-            自民党
+          %h2.main-header__left-box__current-group{ data: {group: {id: params[:group_id]}} } 
+            = @group.name
           %ul.main-header__left-box__member-list
-            Member： message.user.name
-            -# %li.main-header__left-box__member-list__member 
-        = link_to "#", class: 'btn'do 
+            Member： 
+            - @members.each do |member|
+              = member.name
+        = link_to edit_group_path(params[:group_id]) do 
           .main-header__edit-btn Edit
       .messages
         = render @messages
