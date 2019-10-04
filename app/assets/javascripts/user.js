@@ -31,11 +31,12 @@ $(function() {
 
   $('#user-search-field').on('keyup', function(e) {
     var input = $('#user-search-field').val();
+    var group_id = $('.chat__group_id').val();
 
     $.ajax({
       type: 'GET',
       url: '/users', 
-      data: { keyword: input },
+      data: { keyword: input, group_id: group_id },
       dataType: 'json'
     })
 
