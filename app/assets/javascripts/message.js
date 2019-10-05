@@ -2,8 +2,8 @@ $(function() {
 
   function buildHTML(message) {
     var content = message.content ? message.content : "";
-    var image = message.image ? `<img src=${message.image}>` : "";
-    var html = `<div class="message">
+    var img = message.img ? `<img src="${message.img}">` : "";
+    var html = `<div class="message" data="${message.id}">
                   <div class="upper-message">
                     <div class="upper-message__user-name">
                       ${message.user_name}
@@ -16,7 +16,7 @@ $(function() {
                       <p class="lower-message__content">
                         ${content}
                       </p>
-                      ${image}
+                      ${img}
                   </div>
                 </div>`
     return html;
@@ -53,5 +53,28 @@ $(function() {
       alert('エラーのためメッセージが送信できませんでした');
     })
   })
+
+  var reloadMessages = function() {
+    var last_message_id = $('.message:last').data('id')
+    $.ajax({
+      url: '/api_messages',
+      type: 'GET',
+      dataType: 'json',
+      data: { id: last_message_id }
+    })
+    .done(function(messages) {
+      var insertHTML = "";
+      debugger;
+      messages.forEach(function(message){
+        insertHTML = buildHTML(message);
+        $('.message').append(insertHTML);
+        $('.message').animate({scrollTop: $('.message')[0].scrolHeight}, 'fast');
+      });
+    })
+    .fail(function() {
+      alert("自動更新に失敗しました")
+    });
+  };
+  setInterval(reloadMessages, 5000);
 });
 
