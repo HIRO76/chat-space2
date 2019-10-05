@@ -53,5 +53,30 @@ $(function() {
       alert('エラーのためメッセージが送信できませんでした');
     })
   })
+
+
+  var reloadMessages = function() {
+    var last_message_id = $('.message:last').data('id')
+    $.ajax({
+      url: '/api_messages',
+      type: 'GET',
+      dataType: 'json',
+      data: { id: last_message_id }
+    })
+    .done(function(messages) {
+      var insertHTML = "";
+      debugger;
+      messages.forEach(function(message){
+        insertHTML = buildHTML(message);
+        $('.message').append(insertHTML);
+        $('.message').animate({scrollTop: $('.message')[0].scrolHeight}, 'fast');
+      });
+    })
+    .fail(function() {
+      alert("自動更新に失敗しました")
+    });
+  };
+  setInterval(reloadMessages, 5000);
+
 });
 
