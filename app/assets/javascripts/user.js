@@ -39,8 +39,9 @@ $(function() {
       data: { keyword: input, group_id: group_id },
       dataType: 'json'
     })
-
+    
     .done(function(users){
+      
       if (input.length !== 0) {
         $('#user-search-result').empty();
         users.forEach(function(user){
@@ -68,6 +69,4 @@ $(function() {
       $(this).parent().remove();
     })
   });
-
-
 });
