@@ -69,6 +69,4 @@ $(function() {
       $(this).parent().remove();
     })
   });
-
-
 });

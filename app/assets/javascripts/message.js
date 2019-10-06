@@ -5,7 +5,7 @@ $(function() {
     var content = message.content ? message.content : "";
     var image = message.image ? `<img src=${message.image}>` : "";
                             //data-idが反映されるようにしている
-    var html = `<div class="message" data="${message.id}"> 
+    var html = `<div class="message" data-message-id="${message.id}"> 
                   <div class="upper-message">
                     <div class="upper-message__user-name">
                       ${message.user_name}
@@ -21,7 +21,6 @@ $(function() {
                       ${image}
                   </div>
                 </div>`
-                // debugger;
     return html;
   }
 
@@ -46,7 +45,6 @@ $(function() {
       contentType: false
     })
     .done(function(message){
-      // console.log(message)
       var html = buildHTML(message);
       $('.messages').append(html);
       $('#new_message')[0].reset();
@@ -63,7 +61,6 @@ $(function() {
     if (window.location.href.match(/\/groups\/\d+\/messages/)) {
       //カスタムデータ属性を利用し、ブラウザに表示されている最新メッセージのidを取得し、左辺へ代入
       var last_message_id = $('.message:last').data('message-id');
-      // debugger;
       //ajax通信で以下の処理を実行
       $.ajax({
         //api/message_controllerに処理を飛ばす
@@ -84,18 +81,17 @@ $(function() {
           //メッセージが入ったHTMLを取得
           insertHTML = buildHTML(message);
           //メッセージを追加
-          $('.message').append(insertHTML);
+          $('.messages').append(insertHTML);
+          //最新のメッセージが一番下に表示されようにスクロールする
+          $('.messages').animate({scrollTop: $('.messages')[0].scrollHeight}, 'fast');
         });
-        //最新のメッセージが一番下に表示されようにスクロールする
-        $('.message').animate({scrollTop: $('.message')[0].scrollHeight}, 'fast');
       })
+      //失敗時のアラート
       .fail(function() {
-        //失敗時のアラート
         alert("自動更新に失敗しました")
       });
-    } else {
-      //5秒ごとにreloadMessages関数を実行
-      setInterval(reloadMessages, 5000);
-    }
+    }; 
   };
+  setInterval(reloadMessages, 5000);
 });
+
