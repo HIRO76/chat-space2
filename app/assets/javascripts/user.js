@@ -28,33 +28,36 @@ $(function() {
                 </div>`
                 member_list.append(html);
   }
-
+  
   $('#user-search-field').on('keyup', function(e) {
     var input = $('#user-search-field').val();
     var group_id = $('.chat__group_id').val();
 
     $.ajax({
       type: 'GET',
+      //usersコントローラのindexアクションが起動
       url: '/users', 
+      //keywordとgroup_idを送信
       data: { keyword: input, group_id: group_id },
+      //jsonでレスポンス
       dataType: 'json'
     })
-    
+    // usersにjson形式のuser変数が代入される。複数形なので配列型で入ってくる
     .done(function(users){
-      
+      $('#user-search-result').empty();
+      // 値が等しくないもしくは型が等しくなければ以下の処理を実行
       if (input.length !== 0) {
-        $('#user-search-result').empty();
+        // users情報をひとつずつとりだしてuserに代入
         users.forEach(function(user){
           appendUser(user)
         });
       } else {
-        $('#user-search-result').empty();
         appendErrMsgToHTML("一致するユーザーが見つかりません");
-      }      
+      }
     })
     .fail(function() {
       alert('ユーザー検索に失敗しました');
-    })
+    });
   });
 
   $(function(){
