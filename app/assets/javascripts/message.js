@@ -6,7 +6,6 @@ $(function() {
     var image = message.image ? `<img src=${message.image}>` : "";
                             //data-idが反映されるようにしている
     var html = `<div class="message" data-message-id="${message.id}"> 
-
                   <div class="upper-message">
                     <div class="upper-message__user-name">
                       ${message.user_name}
@@ -19,7 +18,7 @@ $(function() {
                       <p class="lower-message__content">
                         ${content}
                       </p>
-                      ${img}
+                      ${image}
                   </div>
                 </div>`
     return html;
