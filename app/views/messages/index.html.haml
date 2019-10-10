@@ -29,6 +29,7 @@
             Member： 
             - @members.each do |member|
               = member.name
+              -# - binding.pry
         = link_to edit_group_path(params[:group_id]) do 
           .main-header__edit-btn Edit
       .messages
@@ -41,4 +42,6 @@
               = fa_icon 'picture-o', class: 'icon'
               = f.file_field :image, class: 'hidden'
           = f.submit 'Send', class: 'form__submit'
+
+          
 

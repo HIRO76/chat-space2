@@ -36,25 +36,27 @@ $(function() {
     e.preventDefault();
     var formData = new FormData(this);
     var url = $(this).attr('action')
-    $.ajax({
-      url: url,
-      type: "POST",
-      data: formData,
-      dataType: 'json',
-      processData: false,
-      contentType: false
+      $.ajax({
+        url: url,
+        type: "POST",
+        data: formData,
+        dataType: 'json',
+        processData: false,
+        contentType: false
+      })
+    
+      .done(function(message){
+        var html = buildHTML(message);
+        $('.messages').append(html);
+        $('#new_message')[0].reset();
+        $('.form__submit').prop('disabled', false);
+        scrollBottom();
+      })
+      .fail(function() {
+        alert('エラーのためメッセージが送信できませんでした');
+        $('.form__submit').prop('disabled', false);
     })
-    .done(function(message){
-      var html = buildHTML(message);
-      $('.messages').append(html);
-      $('#new_message')[0].reset();
-      $('.form__submit').prop('disabled', false);
-      scrollBottom();
-    })
-    .fail(function() {
-      alert('エラーのためメッセージが送信できませんでした');
-    })
-  })
+  });
 
   var reloadMessages = function() {
     //今いるページのリンクが/groups/グループID/messagesのパスとマッチした場合、以下の処理を実行
