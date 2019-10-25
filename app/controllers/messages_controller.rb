@@ -11,13 +11,16 @@ class MessagesController < ApplicationController
     @message = @group.messages.new(message_params)
     if @message.save
       respond_to do |format|
-        format.html { redirect_to group_messages_path(@group) }
-        format.json 
+      format.html { redirect_to group_messages_path(@group) }
+      format.json 
       end
     else
       @messages = @group.messages.includes(:user)
       flash.now[:alert] = 'メッセージを入力してください。'
+      # ここで@membersを再度取得していないのでrender :indexした際に@membersがnilになっている
+      @members = @group.users
       render :index
+      # redirect_to :index
     end
   end
 
@@ -31,7 +34,3 @@ class MessagesController < ApplicationController
     @group = Group.find(params[:group_id])
   end
 end
-
-
-
-

@@ -6,7 +6,6 @@ $(function() {
     var image = message.image ? `<img src=${message.image}>` : "";
                             //data-idが反映されるようにしている
     var html = `<div class="message" data-message-id="${message.id}"> 
-
                   <div class="upper-message">
                     <div class="upper-message__user-name">
                       ${message.user_name}
@@ -19,7 +18,7 @@ $(function() {
                       <p class="lower-message__content">
                         ${content}
                       </p>
-                      ${img}
+                      ${image}
                   </div>
                 </div>`
     return html;
@@ -37,25 +36,27 @@ $(function() {
     e.preventDefault();
     var formData = new FormData(this);
     var url = $(this).attr('action')
-    $.ajax({
-      url: url,
-      type: "POST",
-      data: formData,
-      dataType: 'json',
-      processData: false,
-      contentType: false
+      $.ajax({
+        url: url,
+        type: "POST",
+        data: formData,
+        dataType: 'json',
+        processData: false,
+        contentType: false
+      })
+    
+      .done(function(message){
+        var html = buildHTML(message);
+        $('.messages').append(html);
+        $('#new_message')[0].reset();
+        $('.form__submit').prop('disabled', false);
+        scrollBottom();
+      })
+      .fail(function() {
+        alert('エラーのためメッセージが送信できませんでした');
+        $('.form__submit').prop('disabled', false);
     })
-    .done(function(message){
-      var html = buildHTML(message);
-      $('.messages').append(html);
-      $('#new_message')[0].reset();
-      $('.form__submit').prop('disabled', false);
-      scrollBottom();
-    })
-    .fail(function() {
-      alert('エラーのためメッセージが送信できませんでした');
-    })
-  })
+  });
 
   var reloadMessages = function() {
     //今いるページのリンクが/groups/グループID/messagesのパスとマッチした場合、以下の処理を実行
