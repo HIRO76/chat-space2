@@ -71,7 +71,9 @@ gem 'fog-aws'
 gem "font-awesome-rails"
 gem 'haml-rails'
 gem 'mini_magick'
+
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
 group :production do
   gem 'unicorn', '5.4.1'
 end
