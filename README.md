@@ -1,15 +1,29 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# 学習用チャット型アプリケーション
 
-Things you may want to cover:
+## サンプル画像
+(https://gyazo.com/7cbe90d80c75f577146146e2c0cb64c5)
 
-* Ruby version
+## 環境
+- Rails '5.0.7'
+- mysql2 '0.3.18~0.6.0' 
+- AWS(capistrano,nginx,unicorn)
 
-* System dependencies
+## App説明
+簡易チャットアプリケーション  
+メッセージや画像のやりとりができる
 
-* Configuration
+## 仕様
+- ユーザー登録・グループ登録/編集・削除
+- 記事投稿/テキスト・画像（非同期）
+- ユーザー検索（インクリメンタルサーチ）
+- 自動更新機能
+
+## 使用説明
+ユーザー登録後、チャットグループを作成します   
+グループ作成後にグループ名を押下するとグループチャットルームへ遷移します  
+メッセージフォームからメッセージや画像が送信できます
 
 * Database creation
 # ChatSpace DBdesign
@@ -55,12 +69,4 @@ Things you may want to cover:
 
 ------------------------
 
-* Database initialization
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
