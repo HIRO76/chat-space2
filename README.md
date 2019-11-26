@@ -25,7 +25,6 @@
 グループ作成後にグループ名を押下するとグループチャットルームへ遷移します  
 メッセージフォームからメッセージや画像が送信できます
 
-* Database creation
 # ChatSpace DBdesign
 ## users_table
 |Column|Type|Options|
